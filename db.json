@@ -1,0 +1,44 @@
+{
+  "posts": [
+    {
+      "title": "json-server",
+      "desc": "Desc 1",
+      "body": "content 1",
+      "author": "typicode",
+      "id": 1
+    },
+    {
+      "title": "My Title Updated",
+      "desc": "Updated Desc",
+      "body": "fdsfsd",
+      "author": "Segnichooo",
+      "date": "9/21/2023",
+      "id": 2
+    },
+    {
+      "title": "ss",
+      "desc": "",
+      "body": "conent 3",
+      "author": "auth",
+      "date": "9/21/2023",
+      "id": 3
+    },
+    {
+      "title": "ghidfkidjkg",
+      "author": "dinfsjk",
+      "desc": "",
+      "date": "9/21/2023",
+      "id": 0.9299323201207437
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
