@@ -7,7 +7,7 @@
         </button>
       </small>
     </h4>
-    <div class="col-md-12 form-wrapper">
+    <div v-if="post" class="col-md-12 form-wrapper">
       <h2>Edit Post</h2>
       <form id="edit-post-form" @submit.prevent="editPost">
         <div class="form-group col-md-12">
@@ -63,12 +63,15 @@
 
 <script>
 import router from "@/router";
-import { baseURL } from "@/utils/helper";
-import axios from "axios";
 
 export default {
   data() {
-    return { id: 0, post: {} };
+    return { id: 0 };
+  },
+  computed: {
+    post() {
+      return this.$store.getters.SINGLE_POST;
+    },
   },
   created() {
     this.id = this.$route.params.id;
@@ -82,16 +85,14 @@ export default {
         body: this.post.body,
         author: this.post.author,
         date: this.post.date,
+        id: this.id,
       };
-      axios.put(`${baseURL}/posts/${this.id}`, postData).then((res) => {
+      this.$store.dispatch("UPDATE_POST", postData).then(() => {
         router.push({ name: "home" });
       });
     },
     getPost() {
-      axios.get(`${baseURL}/posts/${this.id}`).then((res) => {
-        this.post = res.data;
-        console.log(this.post);
-      });
+      this.$store.dispatch("GET_SINGLE_POST", this.id);
     },
     navigate() {
       router.go(-1);

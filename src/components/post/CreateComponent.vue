@@ -54,9 +54,6 @@
   </div>
 </template>
 <script>
-import { baseURL } from "@/utils/helper";
-import axios from "axios";
-import router from "@/router";
 export default {
   data() {
     return {
@@ -76,14 +73,10 @@ export default {
         author: this.author,
         desc: this.desc,
         date: this.date,
-        id: Math.random()
+        id: Math.random(),
       };
-      this.submitPost(postData);
-    },
-    submitPost(data) {
-      axios.post(`${baseURL}/posts`, data).then((response) => {
-        console.log(response);
-        router.push({ name: "home" });
+      this.$store.dispatch("ADD_POST", postData).then(() => {
+        this.$router.push({ name: "home" });
       });
     },
   },

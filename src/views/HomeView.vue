@@ -7,12 +7,12 @@
         MongoDB
       </p>
 
-      <div v-if="posts.length === 0">
+      <div v-if="!posts">
         <h2>No post found at the moment</h2>
-      </div> 
+      </div>
     </div>
 
-    <div class="row">
+    <div v-if="posts" class="row">
       <div class="col-md-4" v-for="post in posts" :key="post.id">
         <div class="card mb-4 shadow-sm">
           <div class="card-body">
@@ -55,23 +55,22 @@
 import { baseURL } from "@/utils/helper";
 import axios from "axios";
 export default {
-  data() {
-    return { posts: [] };
+ 
+  computed:{
+    posts(){
+      return this.$store.getters.POSTS;
+    }
   },
   created() {
-    this.fetchData();
+    this.$store.dispatch("GET_POSTS")
+  },
+  mounted() {
   },
   methods: {
-    fetchData() {
-      axios.get(`${baseURL}/posts`).then((res) => {
-        console.log("res", res);
-        this.posts = res.data});
-    },
     deletePost(id) {
-      axios.delete(`${baseURL}/posts/${id}`).then((data) => {
-        console.log(data);
-        window.location.reload();
-      });
+      this.$store.dispatch("DELETE_POST", id).then(
+        console.log("deleted")
+      );
     },
   },
 };
